@@ -1,2 +1,3 @@
 # softito-egitim
 
+metin güncelleme
