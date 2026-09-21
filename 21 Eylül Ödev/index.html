@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tissot PRX 40mm - Ürün Tanıtımı</title>
+    <style>
+        body { 
+            font-family: system-ui, -apple-system, sans-serif; 
+            background: #f8fafc; 
+            padding: 24px; 
+            max-width: 600px; 
+            margin: auto; 
+            color: #1e293b; 
+        }
+        .card { 
+            background: white; 
+            padding: 24px; 
+            border-radius: 12px; 
+            border: 1px solid #e2e8f0; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+            margin-bottom: 20px; 
+        }
+        h1 { color: #0f172a; margin-top: 0; font-size: 24px; }
+        h3 { margin-bottom: 12px; color: #334155; font-size: 18px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; }
+        
+        /* Video ve Iframe Stilleri */
+        iframe { 
+            width: 100%; 
+            border-radius: 8px; 
+            margin-bottom: 16px; 
+            border: none;
+        }
+        
+        /* Meter Stili */
+        meter { 
+            width: 100%; 
+            height: 24px; 
+            margin-top: 8px; 
+            margin-bottom: 24px; 
+        }
+        .hint { font-size: 13px; color: #64748b; margin-top: 4px; }
+        
+        /* Details Stilleri */
+        details { 
+            margin-bottom: 12px; 
+            border: 1px solid #cbd5e1; 
+            border-radius: 6px; 
+            padding: 12px; 
+            background: #f8fafc;
+        }
+        summary { 
+            font-weight: 600; 
+            cursor: pointer; 
+            color: #0f172a; 
+            font-size: 15px;
+        }
+        details p { 
+            font-size: 14px; 
+            margin-top: 10px; 
+            margin-bottom: 0; 
+            color: #475569; 
+            line-height: 1.5;
+        }
+        
+        /* Dialog Modal Stilleri */
+        dialog { 
+            border: none; 
+            border-radius: 12px; 
+            padding: 24px; 
+            width: 90%;
+            max-width: 400px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+        }
+        dialog::backdrop { 
+            background: rgba(15, 23, 42, 0.7); 
+            backdrop-filter: blur(4px); 
+        }
+        
+        /* Buton Stilleri */
+        .btn { 
+            background: #0f172a; 
+            color: white; 
+            border: none; 
+            padding: 10px 16px; 
+            border-radius: 6px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            width: 100%;
+            font-size: 15px;
+        }
+        .btn:hover { background: #1e293b; }
+        .btn-close { 
+            background: #ef4444; 
+            width: auto;
+            margin-top: 16px;
+        }
+        .btn-close:hover { background: #dc2626; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Tissot PRX 40mm İncelemesi</h1>
+
+        <!-- 1. GÖREV: Video ve Iframe -->
+        <h3>Tanıtım Videoları</h3>
+        
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/_QfGhVZBqZc?si=D-J6btVyiNpwuqWM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+        <!-- 2. GÖREV: Stok Durumu (Meter) -->
+        <h3>Stok Durumu</h3>
+        <label for="stockMeter">Kalan Stok (Kritik Seviye):</label>
+        <meter id="stockMeter" value="15" min="0" max="100" low="20" high="80" optimum="90"></meter>
+        <div class="hint">Stok %20'nin altına düştüğü için tarayıcı otomatik uyarı rengi (sarı/kırmızı) verir.</div>
+
+        <!-- 3. GÖREV: Açılır Kapanır Soru-Cevap (Details & Summary) -->
+        <h3 style="margin-top: 24px;">Sıkça Sorulan Sorular</h3>
+        
+        <details>
+            <summary>Saat su geçirir mi?</summary>
+            <p>Hayır, Tissot PRX modeli 10 bar (100 metre) basınca kadar su geçirmezlik özelliğine sahiptir.</p>
+        </details>
+        
+        <details>
+            <summary>Çelik kordon ayarı nasıl yapılır?</summary>
+            <p>Kordon üzerindeki pimler çıkarılarak bileğinize uygun bakla eksiltmesi yapılabilir. İhtiyacınıza göre kolayca kişiselleştirilebilir.</p>
+        </details>
+
+        <!-- 4. GÖREV: Detaylı Bilgi Modal (Dialog) -->
+        <h3 style="margin-top: 24px;">Teknik Özellikler</h3>
+        <button type="button" class="btn" onclick="document.getElementById('infoModal').showModal()">Detaylı Bilgi Al</button>
+
+        <dialog id="infoModal">
+            <h3 style="margin-top: 0; border-bottom: none;">Teknik Detaylar</h3>
+            <ul style="color: #475569; font-size: 14px; line-height: 1.8; padding-left: 20px;">
+                <li><strong>Kasa Çapı:</strong> 40mm</li>
+                <li><strong>Mekanizma:</strong> Swiss Quartz</li>
+                <li><strong>Cam:</strong> Çizilmeye dayanıklı safir kristal</li>
+                <li><strong>Gövde:</strong> 316L paslanmaz çelik</li>
+            </ul>
+            <div style="text-align: right;">
+                <button type="button" class="btn btn-close" onclick="document.getElementById('infoModal').close()">Kapat</button>
+            </div>
+        </dialog>
+    </div>
+</body>
+</html>
