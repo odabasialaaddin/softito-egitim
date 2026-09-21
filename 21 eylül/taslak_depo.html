@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline-first taslak ve sepet depolama</title>
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fafc;
+            box-shadow: 0;
+            color: #1e293b;
+            padding: 24px;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        .card{
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .form-group{
+            margin-bottom: 16px;
+        }
+        label{
+            display: block;
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+        input, textarea{
+            width: 100%;
+            padding: 10px;
+            border: 1.5px solid #cbd5e1;        
+           font-size: 14px;
+           box-sizing: border-box; /* düzeltildi */
+        }
+        .badge{
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            background: #e0f2fe;
+            color: #0369a1;
+            margin-bottom: 12px;
+            }
+            .btn-group{
+                display: flex;
+                gap: 10px;
+                margin-top: 16px;
+            }
+            button{
+                flex:1;
+                padding: 10px;
+                border-radius: 6px;
+                border: none;
+                font-weight: bold;
+                cursor: pointer;
+            }
+            .btn-submit{
+                background: darkred;
+                color: white;
+            }
+
+            .btn-clear {
+                background: darkred;
+                color: white; 
+            }
+            .status-msg {
+                font-size: 12px;
+                color: #10b981;
+                margin-top: 8px;
+                font-weight: 600;
+                min-height: 18px;
+            }
+    </style>
+</head>
+<body>
+    <div class = "card">
+        <span class = "badge">otomatik offline kayıt aktif</span>
+        <h3>müşteri arıza ve destek kayıt formu</h3>
+        <p style = "font-size: 12px; color: #64748b; margin-bottom: 16px;">
+        tarayıcıyı kapatsanız bile bunlar kayıtlı olarak kalacaktır.</p>
+
+        <form id="supportForm"> <!-- id düzeltildi -->
+            <div class = "form-group">
+                <label for="txtName">Müşteri Ad Soyad:</label>
+                <input type="text" id="txtName" name="name" placeholder="Ahmet Yılmaz">
+
+            </div>
+            <div class = "form-group">
+                <label for="txtDevice">Cihaz modeli ve seri numarası:</label>
+                <input type="text" id="txtDevice" name="device" placeholder="iphone 18 pro max ve 1234567890"> <!-- placeholder düzeltildi -->
+                </div>
+            <div class = "form-group">
+                <label for="txtDesc">Arıza Detayı:</label>
+                <textarea id="txtDesc" name="desc" rows="4" placeholder="Arıza detayını buraya yazınız."></textarea>
+            </div>
+            <div class = "status-msg" id="statusLog"></div>
+
+                <div class = "btn-group">
+                    <button type="submit" class = "btn-submit">kaydı tamamla</button>
+                    <button type="button" id="btnClear" class = "btn-clear">taslağı sıfırla</button> <!-- id düzeltildi -->
+                </div> <!-- div kapatıldı -->
+        </form>
+    </div>
+
+    <script>
+        const STORAGE_KEY = "selehaddin_support_softito"; // STORAGE_KEY düzeltildi
+        const form = document.getElementById("supportForm");
+        const nameInput = document.getElementById("txtName");
+        const deviceInput = document.getElementById("txtDevice");
+        const descInput = document.getElementById("txtDesc");
+        const statusLog = document.getElementById("statusLog");
+        const btnClear = document.getElementById('btnClear');
+
+        //1. Sayfa Açıldığında LocalStorage'den Taslağı Geri Getir
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedData = localStorage.getItem(STORAGE_KEY);
+            if (savedData) {
+                try {
+                    const draft = JSON.parse(savedData);
+                    nameInput.value = draft.name || "";
+                    deviceInput.value = draft.device || "";
+                    descInput.value = draft.desc || "";
+                    statusLog.innerText = `Önceki Taslak Geri Yüklendi (${draft.lastSaved})`;
+                } catch (e) {
+                    console.error("Taslak parse hatası:", e)
+                }
+            }
+        })
+        
+        //2.Formdaki her bir girişi json olarak LocalStroge' yaz
+        form.addEventListener('input', () => {
+            const draftData = {
+                name: nameInput.value,
+                device: deviceInput.value,
+                desc: descInput.value,
+                lastSaved: new Date().toLocaleString("tr-TR");
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(draftData));
+            statusLog.innerText = `Taslak otomatik olarak Kaydedildi (${draftData.lastSaved})`;
+        });
+    </script>
+</body>
+</html>

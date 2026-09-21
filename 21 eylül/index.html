@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        * {box-sizing: border-box; margin: 0;padding: 0;}
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: gray;
+            color: black;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .player-container{
+            position: relative;
+            width: 100%;
+            max-width: 640px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        video{
+            width: 100%;
+            display: block;
+        }
+        .custom-controls{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: opacity 0.3s ease;
+
+        }
+
+        .timeline-container{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;  
+            font-variant-numeric: tabular-nums;      
+    }
+
+    .progress-bar{
+        flex: 1;
+        -webkit-appearance: none;
+        height: 5px;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.3);
+        outline: none;
+        cursor: pointer;
+    }  
+    .progress-bar::-webkit-slider-thumb{
+        -webkit-appearance: none;
+        appearance: none;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #38bdf8;
+        cursor: pointer;
+    } 
+    .button-group{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .left-controls,.right-controls{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    button{
+        background: none;
+        border: none;
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 6px 10px;
+        cursor: pointer;
+        border-radius: 6px;
+        background: rgba(255,255,255,0.1);
+    }
+
+    button:hover{
+        background: rgba(255, 255, 255, 0.25);
+    }
+    .speed-badge{
+        background: #0284c7;
+        color: white;
+    }
+    </style>
+</head>
+<body>
+<h2 style = "margin-bottom:16px;" >Html5 Video Player</h2>
+
+<div class = "player-container" id = "videoBox">
+    <video id="myVideo" playsinline webkit-playsinline preload="metadata">
+        <source src = "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+        type = "video/mp4">
+        <source src = "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm"
+        type = "video/webm">
+        Tarayıcınız HTML5 video etiketini desteklemiyor.
+    </video>
+
+    <div class = "custom-controls">
+
+        <div class="timeline-container">
+            <span id="currentTime">00:00</span>
+            <input type="range" id="progressBar" class="progress-bar" min="0" max="100" value="0">
+            <span id="duration">00:00</span>
+        </div>
+
+        <div class = "button-group">
+            <div class = "left-controls">
+                <button id = "btnPlay">Oynat</button>
+                <button id = "btnMute">Sesli</button>
+            </div>
+            <div class = "right-controls">
+                <button id = "btnSpeed" class="speed-badge">0x</button>
+                <button id = "btnPip">Pip</button>
+                <button id = "btnFull">Tam Ekran</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const video = document.getElementById("myVideo");
+    const btnPlay = document.getElementById("btnPlay");
+    const btnMute = document.getElementById("btnMute");
+    const btnSpeed = document.getElementById("btnSpeed");
+    const btnPip = document.getElementById("btnPip");
+    const btnFull = document.getElementById("btnFull");
+    const progressBar = document.getElementById("progressBar");
+    const currentTimeEL = document.getElementById("currentTime");
+    const durationTimeEl = document.getElementById("duration");
+
+    //1. Play/Pause Yönetimi
+    btnPlay.addEventListener("click", () => {
+        if (video.paused) {
+            video.play();
+            btnPlay.innerText = "Duraklat";
+        } else {
+            video.pause();
+            btnPlay.innerText = "Oynat";
+        }
+    });
+
+    //2- zaman formatlama
+    function formatTime(seconds) {
+        const min = Math.floor(seconds / 60);
+        const sec = Math.floor(seconds % 60);
+        return `${min.toString().padStart(2, "0")}:${sec.toString().padStart(2, "0")}`;
+    }
+
+    //3- metadata toplam süreyi alma
+    video.addEventListener("loadedmetadata", () => {
+        durationTimeEl.innerText = formatTime(video.duration);
+    });
+
+    //4- video oynarken ilerleme cubugunu guncelleme:
+    video.addEventListener("timeupdate", () => {
+        currentTimeEL.innerText = formatTime(video.currentTime);
+        const progress = (video.currentTime / video.duration) * 100;
+        progressBar.value = progress;
+    });
+
+    // 5- kullanici cubugu kaydirdiginda videoyu ileri geri sarma
+    progressBar.addEventListener("input", (e) => {
+        const seekTime = (e.target.value/ 100) * video.duration;
+        video.currentTime = seekTime;
+    });
+
+    // 6- sessize alma Toggle
+    btnMute.addEventListener("click", () => {
+        video.muted = !video.muted;
+        btnMute.innerText = video.muted ? 'Sessiz' : 'Sesli';
+    });
+
+    //7- oynatma hizi
+    const speeds = [1.0, 1.25, 1.5, 2.0];
+    let SpeedIndex = 1;
+    btnSpeed.addEventListener("click", () => {
+        SpeedIndex = (SpeedIndex + 1) % speeds.length;
+        video.playbackRate = speeds[SpeedIndex];
+        btnSpeed.innerText = `${speeds[SpeedIndex]}x`;
+    });
+
+    //8- pip resim içinde resim
+    btnPip.addEventListener("click", async () => {
+        try {
+            if (video !== document.pictureInPictureElement) {
+                await video.requestPictureInPicture();
+            } else {
+                await document.exitPictureInPicture();
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    });
+
+    //9- tam ekran
+    btnFull.addEventListener("click", async () => {
+        const container = document.getElementById("videoBox");
+        if (!document.fullscreenElement) {
+            container.requestFullscreen().catch((err) => {
+                alert(err.message);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    });
+
+    //3. form gönderildiğinde başarılı mesajı verip taslağı temizlemek.
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('destek talebiniz başarıyla merkeze iletildi');
+        localStorage.removeItem(STORAGE_KEY);
+        form.reset();
+        statusLog.innerText = "Form temizlendi, taslak silindi";
+    });
+
+    //4. taslağı manuel olarak temizleme
+    btnClear.addEventListener('click', () => {
+        if (confirm("Taslağı silmek istediğinize emin misiniz?")) {
+            localStorage.removeItem(STORAGE_KEY);
+            form.reset();
+            statusLog.innerText = 'Taslak Silindi';
+        }
+    });
+
+    //5.Çoklu seçme Sihirli Senkronizasyonu
+    window.addEventListener('storage', (event) => {
+        if (event.key === STORAGE_KEY && event.newValue) {
+            const remoteDraft = JSON.parse(event.newValue);
+            nameInput.value = remoteDraft.name || "";
+            deviceInput.value = remoteDraft.device || "";
+            descInput.value = remoteDraft.desc || "";
+            statusLog.innerText = `Diğer Sekmeden Güncellendi ${remoteDraft.lastSaved}`;
+        }
+    });
+</script>
+</body>
+</html>
