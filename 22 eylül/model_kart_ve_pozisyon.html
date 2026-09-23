@@ -53,11 +53,20 @@
             font-weight: 800;
             padding: 4px 10px;
             border-radius: 20px;
-            box-shadow: 0 2px 8px rgba(239,68,68,0.5);
-
-            
+            box-shadow: 0 2px 8px rgba(239,68,68,0.5);   
         }
-        .bottom.nav{
+        .badge-new {
+            background: #10b981;
+        }
+        .product-desc {
+            color: #94a3b8;
+            margin: 8px 0 16px;
+        }
+        .product-price {
+            color: #38bdf8;
+            font-size: 20px;
+        }
+        .bottom-nav{
             position: fixed;
             bottom:0;
             left: 0;
@@ -96,16 +105,16 @@
         <div class="product-card">
             <span class="badge-discount">%40 İNDİRİM</span>
             <h3>kablosuz kulaklık</h3>
-            <p style="color: #94a3b8; margin: 8px 0 16px;">aktif gürültü engelleme ve 100 sat pil ömrü</p>
-            <strong style="color: #38bdf8; font-size: 20px;">
+            <p class="product-desc">aktif gürültü engelleme ve 100 sat pil ömrü</p>
+            <strong class="product-price">
                 500 tl
             </strong>
         </div>
         <div class="product-card">
-            <span class="badge-discount" style="background: #10b981;">yeni</span>
+            <span class="badge-discount badge-new">yeni</span>
             <h3>akıllı saat</h3>
-            <p style="color: #94a3b8; margin: 8px 0 16px;">nabız ölçümü & tansiyon ölçümü</p>
-            <strong style="color: #38bdf8; font-size: 20px;">
+            <p class="product-desc">nabız ölçümü & tansiyon ölçümü</p>
+            <strong class="product-price">
                 500 tl
             </strong>
         </div>

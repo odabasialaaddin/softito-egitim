@@ -9,13 +9,13 @@
         :root{
         --brand-primary:#4f46e5;
         --brand-accent:#06b6d4;
-        -bg-surface:#ffffff;
+        --bg-surface:#ffffff;
         --text-main:#0f172a;
         --radius-md:12px;
         }
 
         /* dark mode hazirligi*/
-        @media (prfers-color-scheme: dark){
+        @media (prefers-color-scheme: dark){
             :root{
                 --bg-surface:#1e293b;
                 --text-main:#f8fafc;
@@ -33,7 +33,7 @@
         button{
             background-color: gray;
             color: white;
-            padding:12px, 24px;
+            padding: 12px 24px;
             border: none;
             border-radius: var(--radius-md);
             font-size: 16px;
@@ -51,8 +51,7 @@
         }
 
         #submit-btn{
-            background: linear-gradient(135deg,var
-            (--brand-primary), var(--brand-accent))
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
         }
 
         .btn-action:hover{
@@ -67,7 +66,7 @@
 </head>
 <body>
     <h2>Css Degiskenler</h2>
-    <button id = "submit-btn" class="btn-action">işlemi onayla</button>
+    <button id="submit-btn" class="btn-action">işlemi onayla</button>
     
 </body>
 </html>
