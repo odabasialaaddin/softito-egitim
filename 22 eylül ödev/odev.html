@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Detayı</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+
+        .mobile-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            min-height: 100vh;
+            padding-bottom: 85px;
+            position: relative;
+        }
+
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            background-color: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .badge-discount {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background-color: #ef4444;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            z-index: 10;
+        }
+
+        .badge-shipping {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background-color: #10b981;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            z-index: 10;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-details {
+            padding: 24px 20px;
+        }
+
+        .product-brand {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .product-title {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .product-desc {
+            color: #475569;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .size-section {
+            padding: 0 20px 24px;
+        }
+
+        .size-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .size-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            padding: 10px 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background-color: #ffffff;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chip-active {
+            background-color: #0f172a;
+            color: #ffffff;
+            border-color: #0f172a;
+        }
+
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background-color: #ffffff;
+            padding: 16px 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .price-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-label {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 2px;
+        }
+
+        .price-total {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .btn-add-cart {
+            background-color: #4f46e5;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+        <header class="top-nav">
+            <button class="icon-btn">←</button>
+            <span>Ürün Detayı</span>
+            <button class="icon-btn">♡</button>
+        </header>
+
+        <section class="image-wrapper">
+            <span class="badge-discount">%25 İNDİRİM</span>
+            <span class="badge-shipping">KARGO BEDAVA</span>
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=480&h=350&fit=crop" alt="Kırmızı Spor Ayakkabı" class="product-image">
+        </section>
+
+        <section class="product-details">
+            <div class="product-brand">SPORT RUNNER</div>
+            <h1 class="product-title">Ultra Hafif Koşu Ayakkabısı X-200</h1>
+            <p class="product-desc">Özel nefes alabilen kumaşı ve darbe emici tabanı ile uzun mesafe koşularında maksimum konfor sağlar.</p>
+        </section>
+
+        <section class="size-section">
+            <h3 class="size-title">Numara Seçin</h3>
+            <div class="size-chips">
+                <button class="chip">40</button>
+                <button class="chip">41</button>
+                <button class="chip chip-active">42</button>
+                <button class="chip">43</button>
+                <button class="chip">44</button>
+                <button class="chip">45</button>
+            </div>
+        </section>
+
+        <div class="bottom-bar">
+            <div class="price-info">
+                <span class="price-label">Toplam Tutar</span>
+                <span class="price-total">1.250 ₺</span>
+            </div>
+            <button class="btn-add-cart">Sepete Ekle</button>
+        </div>
+    </div>
+
+</body>
+</html>
