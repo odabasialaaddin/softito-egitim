@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sarj istasyonu hesaplayici</title>
+</head>
+<body>
+
+    <h2>sarj hesaplamak icin konsolu acin.</h2>
+    <script>
+        const sarjSuresiTahmini = (mevcutYuzde, hedefYuzde, bataryaKW, istasyonKW, maxBataryaKabulKW = Infinity, tarife = "gunduz") => {
+    if (mevcutYuzde >= hedefYuzde) {
+        return 0;
+    }
+
+    const efektifGuc = Math.min(istasyonKW, maxBataryaKabulKW);
+    const yuzdeFark = hedefYuzde - mevcutYuzde;
+    const gerekenEnerji = bataryaKW * (yuzdeFark / 100);
+    
+    const sureDakika = Math.round((gerekenEnerji / efektifGuc) * 60);
+
+    const birimFiyat = (tarife === "gece") ? 4.5 : 7.5;
+    const toplamFiyat = Math.round(gerekenEnerji * birimFiyat);
+
+    return `Süre: ${sureDakika} dk | Şarj Hızı: ${efektifGuc} kW | Tutar: ${toplamFiyat} TL (${tarife})`;
+};
+
+// SENARYO 1: İstasyon 100 kW, Gelen Araba 20 kW (Mevcut: %15, Hedef: %90, Batarya: 60 kW, Gündüz)
+console.log(sarjSuresiTahmini(15, 90, 60, 100, 20, "gunduz"));
+
+// SENARYO 2: İstasyon 100 kW, Gelen Araba 110 kW (Mevcut: %10, Hedef: %85, Batarya: 80 kW, Gece)
+console.log(sarjSuresiTahmini(10, 85, 80, 100, 110, "gece"));
+
+
+    </script>
+    
+</body>
+</html>
