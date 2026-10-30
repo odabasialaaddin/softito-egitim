@@ -1,3 +1,4 @@
+import 'package:ekim_27/services/api_urun_servisi.dart';
 import 'package:flutter/material.dart';
 
 import '../models/kategori.dart';
@@ -14,7 +15,7 @@ class UrunListesiEkrani extends StatefulWidget {
 }
 
 class _UrunListesiEkraniState extends State<UrunListesiEkrani> {
-  final IUrunServisi _servis = MockUrunServisi();
+  final IUrunServisi _servis = ApiUrunServisi();
   final TextEditingController _aramaController = TextEditingController();
 
   bool _yukleniyorMu = true;

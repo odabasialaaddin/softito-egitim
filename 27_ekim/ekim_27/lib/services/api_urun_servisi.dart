@@ -14,7 +14,7 @@ class ApiUrunServisi implements IUrunServisi{
       final yanit = await http.get(uri).timeout(
         const Duration(seconds:10),
         onTimeout:()=> throw Exception("Ağ isteği zaman aşımına uğradı.(Timeout)"),
-      ),
+      );
       if(yanit.statusCode==200){
         final List<dynamic> hamListe = jsonDecode(utf8.decode(yanit.bodyBytes));
         return hamListe.map((tekil.Json) => Urun.fromJson(tekilJson as Map<String, dynamic>)).toList();
