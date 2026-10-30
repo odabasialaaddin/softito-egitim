@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-
+import 'degerlendirme.dart';
 import 'kategori.dart';
 
 class Urun {
@@ -11,6 +11,7 @@ class Urun {
   final Kategori kategori;
   final int stokAdedi;
   final bool favoriMi;
+  final String degerlendirme;
 
   const Urun({
     required this.id,
@@ -20,8 +21,22 @@ class Urun {
     required this.resimUrl,
     required this.kategori,
     required this.stokAdedi,
+    required this.degerlendirme,
     this.favoriMi = false,
   });
+
+  factory Urun.fromJson(Map<String, dynamic> json) {
+    return Urun(
+      id: json['id'] as int,
+      baslik: json['title'] as String,
+      fiyat: (json['price'] as num).toDouble(),
+      aciklama:json['description'] as String,
+      kategori:json['category'] as String,
+      resimUrl:json['image'] as String,
+      degerlendirme:Degerlendirme.fromJson(json['rating'] as Map <String,dynamic>),
+      favoriMi: false,
+    );
+  }
 
   Urun copyWith({
     int? id,
@@ -32,6 +47,7 @@ class Urun {
     Kategori? kategori,
     int? stokAdedi,
     bool? favoriMi,
+    Degerlendirme ? degerlendirme,
   }) {
     return Urun(
       id: id ?? this.id,
@@ -42,6 +58,7 @@ class Urun {
       kategori: kategori ?? this.kategori,
       stokAdedi: stokAdedi ?? this.stokAdedi,
       favoriMi: favoriMi ?? this.favoriMi,
+      degerlendirme:degerlendirme ?? this.degerlendirme,
     );
   }
 
