@@ -90,14 +90,14 @@ class _FirestoreYonetimEkraniState extends State<FirestoreYonetimEkrani> {
             ),
           ),
           
-          const Divider(thickness: 2),
-          
+          const Divider(thickness: 2),//ekranda yatay ince bir çizgi çizen görsel ayrıcı wigettir. üstteki form alanıyla alttaki liste alanını bibirinden görsel olarak ayırır.
+          //tikness:2 : bu çizginin kalınlığının 2 piksel olacağını belirler.
           // ALT KISIM: Servis üzerinden canlı veri dinleme
-          Expanded(
-            child: StreamBuilder<List<OgrenciModel>>(
-              stream: _servis.ogrencileriCanliDinle(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
+          Expanded(//kalan boşluğu kaplama:expended ekranın üst kısmında form ve buton y erini aldıktan sonra tüm boşluğu dinamik olarak doldurması için listeyi bu widget ile sarmalarız. yoksa overflow hatası.
+            child: StreamBuilder<List<OgrenciModel>>(//ekranın kalbi. sürekli akan bir veriyi dinleyen ve o veri her değiştiğinde tüm sayfayı edğil sadece kendi içindeki listeyi yeniden çizen inşaatçı.
+              stream: _servis.ogrencileriCanliDinle(),//dinlenecek nehrin kaynağını sorar. bizde ogrencileriCanliDinle metodunu buraya bağlarız.
+              builder: (context, snapshot) {//snapshot: nehirdeki suyun yani verinin anlık fotoğrafı. veri geldi mi hata var mı vs hayati durumları barındırır.
+                if (snapshot.hasError) {//tüm durumları kontrol ediyoruz.
                   return Center(child: Text("Bulut hatası: ${snapshot.error}"));
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -111,12 +111,12 @@ class _FirestoreYonetimEkraniState extends State<FirestoreYonetimEkrani> {
 
                 final List<OgrenciModel> ogrenciler = snapshot.data!;
 
-                return ListView.builder(
-                  itemCount: ogrenciler.length,
-                  itemBuilder: (context, index) {
-                    final ogrenci = ogrenciler[index];
+                return ListView.builder(//sonsuz kaydırılabilir liste widgetı.
+                  itemCount: ogrenciler.length,//listenin kaç eleman oldugunu yani kaç kere döneceğini belirtir.
+                  itemBuilder: (context, index) {//her bir satırı çizen fabrika. index listenin anlık sıralaması.
+                    final ogrenci = ogrenciler[index];//o an çizilen sıradaki öğrenci nesnesini yakalayıp ogrenci değişkenine atar.
 
-                    return Dismissible(
+                    return Dismissible(//kaydırarak silmenin özellikleri:
                       key: Key(ogrenci.id),
                       direction: DismissDirection.endToStart,
                       background: Container(
@@ -125,13 +125,13 @@ class _FirestoreYonetimEkraniState extends State<FirestoreYonetimEkrani> {
                         padding: const EdgeInsets.only(right: 20.0),
                         child: const Icon(Icons.delete_forever, color: Colors.white),
                       ),
-                      onDismissed: (direction) {
+                      onDismissed: (direction) {//kullanıcı kaydırma işlemini tamamlayıp parmağını çektiğinde tetiklenen fonk.
                         _servis.ogrenciSil(ogrenci.id);
-                        ScaffoldMessenger.of(context).showSnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(//işlem başarılı olunca ekranın altından siyah küöük bir bilgi balonu çıkartarak kullanıcıya öğrenci silindi mesajı verir.
                           SnackBar(content: Text('${ogrenci.adSoyad} buluttan silindi.')),
                         );
                       },
-                      child: ListTile(
+                      child: ListTile(// kaydırma widgetının içinde asıl gösterilecek elemanı. 
                         leading: CircleAvatar(
                           backgroundColor: ogrenci.notu >= 80
                               ? Colors.green
@@ -150,7 +150,7 @@ class _FirestoreYonetimEkraniState extends State<FirestoreYonetimEkrani> {
                         ),
                         subtitle: Text('Proje: ${ogrenci.projeAdi}'),
                         trailing: IconButton(
-                          onPressed: () => _notGuncelleDialog(ogrenci),
+                          onPressed: () => _notGuncelleDialog(ogrenci),//tıklanabilir buton
                           icon: const Icon(
                             Icons.edit,
                             color: Colors.amber,
@@ -194,7 +194,6 @@ class _FirestoreYonetimEkraniState extends State<FirestoreYonetimEkrani> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          // Hatalı "-" işareti ve kırık parantez düzeltildi:
           title: Text('${ogrenci.adSoyad} - Not Güncelle'),
           content: TextField(
             controller: dialogNotKontrolcusu,
@@ -206,7 +205,7 @@ class _FirestoreYonetimEkraniState extends State<FirestoreYonetimEkrani> {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pop(context),//pop = patlat/çıkart context= navigator'e konumu biliriyor.
               child: const Text("İptal"),
             ),
             ElevatedButton(
