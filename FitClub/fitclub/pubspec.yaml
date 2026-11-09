@@ -1,0 +1,52 @@
+name: fitclub
+description: "Tüm Fazlar Dahil Sektör Standardı Clean Architecture Fitness Uygulaması"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # --- FAZ 2: State Management, Concurrency & Fonksiyonel Programlama ---
+  flutter_bloc: ^8.1.6
+  equatable: ^2.0.5
+  bloc_concurrency: ^0.2.5
+  stream_transform: ^2.1.0
+  fpdart: ^1.1.0
+
+  # --- FAZ 2: Code Generation (Modeller ve Union State'ler) ---
+  freezed_annotation: ^3.1.0
+  json_annotation: any
+
+  # --- FAZ 2: Profesyonel Ağ Katmanı ---
+  dio: ^5.7.0
+
+  # --- İLERİ FAZLAR: Dependency Injection, Routing & Offline-First DB ---
+  get_it: ^8.0.2
+  go_router: ^14.3.0
+  hive_flutter: ^1.1.0
+
+  # --- DONANIM & SENSÖR PAKETLERİ (2. ve 3. Gün) ---
+  mobile_scanner: ^5.2.3
+  pedometer: ^4.0.2
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+  # --- Kod Üretici Motorlar ---
+  build_runner: any
+  freezed: any
+  json_serializable: any
+
+  # --- İLERİ FAZLAR: Unit & BLoC Test Paketleri ---
+  bloc_test: any
+  mocktail: ^1.0.4
+
+flutter:
+  uses-material-design: true

@@ -4,33 +4,33 @@ import '../models/tamir_durumu.dart';
 import '../services/i_servis_kayit_servisi.dart';
 import '../widgets/durum_secici_alani.dart';
 
-class AracDetayEkrani extends StatefulWidget {
-  final AracKaydiModeli arac;
-  final IServisKayitServisi servis;
+class AracDetayEkrani extends StatefulWidget {//dinamik//güncellenecek bir ekran çizeceğiz.
+  final AracKaydiModeli arac;//arackaydimodeli tipinde bir arac değişkeni,
+  final IServisKayitServisi servis;//IservisKayitservisi tipinde bir servis değişkeni.
 
   const AracDetayEkrani({
-    super.key,
-    required this.arac,
+    super.key,//üst sınıfa keyi verdik.
+    required this.arac,//arac ve servisi zorunlu kıldık.
     required this.servis,
   });
 
-  @override
+  @override// AracDetayEkranı tipinde dönecek bir State oluşturup createState başlatıyoruz. sağ tarafta arrow function ile git aracdetayekranistate'i başlat diyoruz.
   State<AracDetayEkrani> createState() => _AracDetayEkraniState();
 }
 
 class _AracDetayEkraniState extends State<AracDetayEkrani> {
-  late AracKaydiModeli _guncelArac;
-  bool _degisiklikYapildi = false;
+  late AracKaydiModeli _guncelArac;//late yani çağrıldığında çalışacak bir değişken.
+  bool _degisiklikYapildi = false;//şimdilik false
 
   @override
-  void initState() {
-    super.initState();
-    _guncelArac = widget.arac;
+  void initState() {//initState i eziyoruz.
+    super.initState();//initState'in özelliklerini superle alıyoruz.
+    _guncelArac = widget.arac;//guncelArac değişkenimizin içine widget içindeki arac bilgilerini aktarıyoruz.
   }
 
-  void _durumGuncellemePenceresiAc() {
+  void _durumGuncellemePenceresiAc() {//durum güncelleme penceresi açıyoruz.
     showModalBottomSheet(
-      context: context,
+      context: context,//soldaki showmodelbottomsheet'in istediği context, sağdaki bizim context'imiz
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),

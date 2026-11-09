@@ -4,6 +4,9 @@ import '../models/tamir_durumu.dart';
 class DurumSeciciAlani extends StatelessWidget {
   final TamirDurumu seciliDurum;
   final ValueChanged<TamirDurumu> onChanged;
+  //Tıklanan yeni durumu sırada tamamlandı vs.
+  // parantez içinde ana ekrana geri fırlatan
+  //veri taşıyıcı fonksiyon mantığı var.
 
   const DurumSeciciAlani({
     super.key,
@@ -30,6 +33,7 @@ class DurumSeciciAlani extends StatelessWidget {
           children: TamirDurumu.values.map((durum) {
             final seciliMi = durum == seciliDurum;
 
+//3 tane durumu tek tek elle yazmak yerine, enum içindeki tüm elemanları döngüyle otomatik olarak seçebilir butonlara "ChoiceChip" dönüştürme tekniği var.
             return ChoiceChip(
               label: Text(durum.baslik),
               selected: seciliMi,
@@ -50,3 +54,5 @@ class DurumSeciciAlani extends StatelessWidget {
     );
   }
 }
+
+//ValueChanged<TamirDurumu> Parametreli Callback:
